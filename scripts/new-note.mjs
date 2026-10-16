@@ -11,9 +11,9 @@ const today = new Date().toISOString().slice(0, 10);
 
 const slug =
 	title
-		.toLowerCase()
 		.trim()
-		.replace(/[^a-z0-9]+/g, "-")
+		.toLowerCase()
+		.replace(/[^\p{L}\p{N}]+/gu, "-")
 		.replace(/(^-|-$)/g, "") || `note-${today.replace(/-/g, "")}`;
 
 const path = resolve(`src/data/notes/${slug}.md`);
