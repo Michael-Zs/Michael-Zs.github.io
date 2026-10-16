@@ -1,3 +1,5 @@
+use `npm run new -- "note name"` to create new note
+
 # Astro Starter Kit: Basics
 
 ```sh
