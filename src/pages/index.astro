@@ -4,9 +4,9 @@ import { getCollection } from "astro:content";
 const title = "Michael";
 const description = "Notes, research, and things I build.";
 
-const notes = (await getCollection("notes"))
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-	.slice(0, 3);
+const notes = (await getCollection("notes")).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
 ---
 
 <html lang="en">
@@ -20,11 +20,6 @@ const notes = (await getCollection("notes"))
 	<body>
 		<header>
 			<a href="/" class="logo">Michael</a>
-
-			<nav>
-				<a href="/">Home</a>
-				<a href="/notes">Notes</a>
-			</nav>
 		</header>
 
 		<main>
@@ -39,14 +34,10 @@ const notes = (await getCollection("notes"))
 					I write about things I learn, build, and think about.
 					Mostly robotics, software, and technology.
 				</p>
-
-				<div class="links">
-					<a href="/notes">Read my notes →</a>
-				</div>
 			</section>
 
-			<section class="recent">
-				<h2>Recent</h2>
+			<section class="notes">
+				<h2>Notes</h2>
 
 				{
 					notes.length === 0 ? (
@@ -69,6 +60,10 @@ const notes = (await getCollection("notes"))
 											})}
 										</time>
 									</p>
+
+									{note.data.description && (
+										<p class="post-desc">{note.data.description}</p>
+									)}
 								</li>
 							))}
 						</ul>
@@ -112,21 +107,6 @@ const notes = (await getCollection("notes"))
 		text-decoration: none;
 	}
 
-	nav {
-		display: flex;
-		gap: 24px;
-	}
-
-	nav a {
-		color: #666;
-		text-decoration: none;
-		font-size: 14px;
-	}
-
-	nav a:hover {
-		color: #111;
-	}
-
 	main {
 		max-width: 1000px;
 		margin: 0 auto;
@@ -135,7 +115,7 @@ const notes = (await getCollection("notes"))
 
 	.hero {
 		max-width: 680px;
-		padding: 80px 0 120px;
+		padding: 60px 0 80px;
 	}
 
 	.eyebrow {
@@ -158,23 +138,7 @@ const notes = (await getCollection("notes"))
 		color: #666;
 	}
 
-	.links {
-		display: flex;
-		gap: 24px;
-		margin-top: 36px;
-	}
-
-	.links a {
-		color: #111;
-		font-weight: 500;
-		text-decoration: none;
-	}
-
-	.links a:hover {
-		text-decoration: underline;
-	}
-
-	.recent {
+	.notes {
 		border-top: 1px solid #ddd;
 		padding-top: 32px;
 	}
@@ -215,6 +179,12 @@ const notes = (await getCollection("notes"))
 		font-size: 13px;
 		color: #999;
 		margin: 4px 0 0;
+	}
+
+	.post-desc {
+		color: #666;
+		line-height: 1.6;
+		margin: 6px 0 0;
 	}
 
 	footer {
