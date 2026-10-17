@@ -77,6 +77,11 @@ uv run lerobot-dataset-viz --repo-id lerobot/pusht --episode-index 0
 > eval：测试评估
 > rollout
 
+使用以下来看`lerobot-*`命令的入口文件
+```bash
+grep -nr "lerobot-" pyproject.toml | nvim -c 'set ft=python' -c 'set buftype=nofile' -
+```
+
 ## 代码架构：
 policy存放在`src/lerobot/policies/`下
 configuration（各种超参数）存放在对应policy文件夹里的configuration_xxx.py里
