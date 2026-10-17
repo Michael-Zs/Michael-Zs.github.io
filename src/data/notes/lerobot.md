@@ -99,7 +99,7 @@ grep -rn "make_policy" src/ --include="*.py" | grep -v test
 ② 是核心技能：看懂一个方法的最好方式是看它的调用方——调用处展示了“期望它干什么”。
 ```
 
-### policy文件夹
+### policy
 一个文件夹存放一个policy
 ```bash
 configuration_* # 超参数
@@ -107,6 +107,10 @@ modeling_* # 网络
 processor_* # 数据变换
 factory.py # 字符串->类 翻译
 ```
+
+架构参考：
+- @docs/source/bring_your_own_policies.mdx (policy文档)
+- @src/lerobot/policies/pretrained.py (policy父类)
 
 ## 参数介绍
 
