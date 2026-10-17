@@ -79,7 +79,7 @@ uv run lerobot-dataset-viz --repo-id lerobot/pusht --episode-index 0
 
 使用以下来看`lerobot-*`命令的入口文件
 ```bash
-grep -nr "lerobot-" pyproject.toml | nvim -c 'set ft=python' -c 'set buftype=nofile' -
+grep -n 'lerobot-' pyproject.toml | nvim -c 'set ft=toml' -c 'set buftype=nofile' -
 ```
 
 ## 代码架构：
