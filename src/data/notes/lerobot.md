@@ -81,6 +81,33 @@ uv run lerobot-dataset-viz --repo-id lerobot/pusht --episode-index 0
 policy存放在`src/lerobot/policies/`下
 configuration（各种超参数）存放在对应policy文件夹里的configuration_xxx.py里
 
+- grep 的四个姿势（比“全局搜索”精确得多）
+```bash
+# ① 找定义：锚定 class/def 前缀
+grep -rn "class PI05Policy" src/
+grep -rn "def select_action" src/
+
+# ② 找调用方（反向追踪，最常用！）：
+#    注意前面的点——搜"方法被调用"，而不是"方法被定义"
+grep -rn "\.select_action(" src/
+
+# ③ 只看分布，不进细节：先看命中哪些文件，再挑一个深入
+grep -rln "predict_action_chunk" src/
+
+# ④ 排除噪音
+grep -rn "make_policy" src/ --include="*.py" | grep -v test
+② 是核心技能：看懂一个方法的最好方式是看它的调用方——调用处展示了“期望它干什么”。
+```
+
+### policy文件夹
+一个文件夹存放一个policy
+```bash
+configuration_* # 超参数
+modeling_* # 网络
+processor_* # 数据变换
+factory.py # 字符串->类 翻译
+```
+
 ## 参数介绍
 
 policy, robot
