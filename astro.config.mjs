@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://michael-zs.github.io",
+	site: "https://blog.smilezhang.top",
 	image: {
 		layout: "constrained",
 		responsiveStyles: true,
