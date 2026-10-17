@@ -77,7 +77,12 @@ uv run lerobot-dataset-viz --repo-id lerobot/pusht --episode-index 0
 > eval：测试评估
 > rollout
 
-## 参数介绍：
+## 代码架构：
+policy存放在`src/lerobot/policies/`下
+configuration（各种超参数）存放在对应policy文件夹里的configuration_xxx.py里
+
+## 参数介绍
+
 policy, robot
 
 # TODO:
@@ -85,6 +90,12 @@ policy, robot
 - [ ] 仿真测试，使用学校电脑
 - [ ] 看论文？别人是怎么做的
 - [ ] lerobot如何二次开发，看课题组基于lerobot的工作是怎样的
+- [ ] 笔记，config，policy，processor
 
 > lerobot有哪些policy？
 > 如果仅仅使用已有的policy，那岂不是没有任何策略的进步，如何二次开发
+> 改 config：chunk_size、学习率、backbone、图像增强……同一策略行为大变
+> Processor 积木：我们之前看过的 inverse_kinematics_ee_to_joints、相对动作转换、图像变换——都是不碰 policy 内部就能改变系统行为的机制。比如“ACT + EE pose action space”就是用现成积木拼出来的新组合
+> 
+> config有什么用？
+
