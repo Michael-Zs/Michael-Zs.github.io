@@ -141,6 +141,7 @@ const pubDate = note.data.pubDate.toLocaleDateString("en-US", {
 
 	.content {
 		line-height: 1.75;
+		overflow-wrap: break-word;
 	}
 
 	.content :global(h2) {
@@ -195,11 +196,13 @@ const pubDate = note.data.pubDate.toLocaleDateString("en-US", {
 		background: #eee;
 		border-radius: 4px;
 		padding: 2px 6px;
+		overflow-wrap: anywhere;
 	}
 
 	.content :global(pre) {
 		border-radius: 8px;
 		padding: 20px;
+		max-width: 100%;
 		overflow-x: auto;
 		font-size: 14px;
 		line-height: 1.6;
@@ -209,6 +212,14 @@ const pubDate = note.data.pubDate.toLocaleDateString("en-US", {
 		background: none;
 		padding: 0;
 		font-size: 1em;
+		overflow-wrap: normal;
+	}
+
+	.content :global(table) {
+		display: block;
+		max-width: 100%;
+		overflow-x: auto;
+		border-collapse: collapse;
 	}
 
 	.back {
