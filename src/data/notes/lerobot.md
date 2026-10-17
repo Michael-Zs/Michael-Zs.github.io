@@ -66,3 +66,22 @@ uv run lerobot-dataset-viz --repo-id lerobot/pusht --episode-index 0
 >使用rerun
 
 ![](attachments/Pasted%20image%2020261017150154.png)
+# 训练自己的模型
+## 一般流程：
+> setup-motors
+> calibrate
+> teleoperate
+> record
+> train
+> replay：录制动作重放
+> eval：测试评估
+> rollout
+
+## 参数介绍：
+policy, robot
+
+# TODO:
+- [ ] lerobot代码，看policy, robot, dataset 定义
+- [ ] 仿真测试，使用学校电脑
+- [ ] 看论文？别人是怎么做的
+- [ ] lerobot如何二次开发，看课题组基于lerobot的工作是怎样的
