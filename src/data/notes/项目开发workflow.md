@@ -4,6 +4,7 @@ description: ""
 pubDate: 2026-10-18
 tags: []
 ---
+# 项目级插件
 我使用`just`来自定义指令，并且通过自定义加载的neovim lua文件来完成对不同项目的定制化，
 例如，在LeRobot项目中，我使用如下配置：
 
@@ -61,3 +62,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 setup_lerobot_keymap()
 ```
 > 也可以考虑使用`.nvim.lua`，自定义`filetype`并使用`autocmd`来完成更灵活的配置
+
+# 快捷键配置
+可以约定使用`<leader>p`作为项目快捷键，并且给`which-key`配置分组
