@@ -23,9 +23,9 @@ function preview_stack_trace()
 	if path and symbol then
 		path = "src/" .. string.gsub(path, "%.", "/") .. ".py"
 		print(path .. ":" .. symbol)
-		pcall(vim.cmd("e " .. path))
+		pcall(vim.cmd, "e " .. path)
 		vim.fn.cursor(1, 1)
-		local lnum = vim.fn.search("def main", "w")
+		local lnum = vim.fn.search("def " .. symbol, "w")
 		if lnum == 0 then
 			vim.notify(symbol .. " not found")
 		end
