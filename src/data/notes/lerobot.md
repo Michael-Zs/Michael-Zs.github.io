@@ -117,10 +117,17 @@ factory.py # 字符串->类 翻译
 - @docs/source/bring_your_own_policies.mdx (policy文档)
 - @src/lerobot/policies/pretrained.py (policy父类)
 
+### Stack Trace
+关键概念有policy, strategy
+rollout -> Strategy -> policy
+
+---
 ## 参数介绍
 
 policy, robot
 
+
+---
 # TODO:
 - [ ] lerobot代码，看policy, robot, dataset 定义
 - [ ] 仿真测试，使用学校电脑
@@ -135,3 +142,9 @@ policy, robot
 > 
 > config有什么用？
 
+> 一个值得注意的 strategy：dagger
+> 它把我们最早聊的复合误差问题变成了采集方案：policy 自己跑，人只在它要犯错时介入修正——修正的那段轨迹恰好是“分布外状态下的正确动作”，正是缓解 distribution shift 最值钱的数据。部署、监控、采数据、再训练在这个模式下形成闭环。
+
+> 先看`rollout`，看到使用`create_strategy`，然后下面使用了`strategy.run(ctx)`, 这一定是重点，于是看`create_strategy`的定义->`BaseStrategy(RolloutStrategy)`，在里面找到了`.run方法`，里面`action=send_next_action(obs)`往里找到发现使用`action_tensor = engine.get_action(obs_frame)`，而`engine`在函数中使用：`engine = ctx.policy.inference`获取，
+> 所以得到了最终的stack_trace:`ctx.policy.inference.get_action(obs)`
+> 于是返回看，看base的setup:`self._init_engine(ctx)`，无，所以再往上一层：ctx来自`build_rollout_context`，终于找到：@src/lerobot/rollout/inference/sync.py:86
