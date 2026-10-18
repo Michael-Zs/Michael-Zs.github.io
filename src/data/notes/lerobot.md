@@ -127,6 +127,76 @@ rollout -> Strategy -> policy
 **processed_obs->policy->action->action_processor->robot.send_action**
 > @src/lerobot/rollout/strategies/core.py:430-431
 
+在rollout中，制造ctx和strategy
+```python
+ctx = build_rollout_context(cfg, shutdown_event)
+strategy = create_strategy(cfg.strategy)
+strategy.run(ctx)
+```
+
+## 分两条路
+### 在`context.py:build_context`中
+```python
+policy = _load_pretrained_policy(policy_config) # 加载policy
+
+_t, _r, _o = make_default_processors() # 机器人硬件侧的processors
+# teleop, robot_action, robot_observation
+
+robot = make_robot_from_config(robot_config) # 机器人硬件初始化
+    robot.connect()
+    initial_obs = robot.get_observation()
+
+# ... features? 什么意思，没搞懂
+# ... dataset 处理
+
+# policy侧的processors
+preprocessor, postprocessor = make_pre_post_processors(...)
+
+# 重头戏 strategy工厂
+inference_strategy = create_inference_engine(policy, pre/postprocessor, robot, dataset_feature...)
+# @src/lerobot/rollout/context.py:580
+
+return {
+	.runtime = {cfg, shutdown_event}
+	.hardware = {robot_wrapper, teleop, initial_position},
+	.policy = {policy, pre/postprocessor, inference(_strategy)},
+	.processors = {teleop_action, robot_action, robot_obsprocessor},
+	.data = {dataset, dataset_features, hw_features, ordered_action_keys}
+}
+```
+
+所以现在`ctx.policy.inference = create_inference_engine`
+而这个工厂函数，根据类型分流，sync/rtc.py
+以sync为例：
+`@src/lerobot/rollout/inference/sync.py:107-110`
+```python
+def get_action():
+	observation = prepare_observation_for_inference(observation, self._device, task, self._robot_type)
+	observation = self._preprocessor(observation)
+	action = self._policy.select_action(observation) # 这里由policy实现
+	# policy父类为PreTrainedPolicy
+	action = self._postprocessor(action)
+	return action_tensor
+```
+好，先记住这个函数，回到
+
+### 在create_strategy函数中
+`@src/lerobot/rollout/strategies/factory.py:34`
+往下看BaseStrategy分支(父类是RolloutStrategy)
+`@src/lerobot/rollout/strategies/base.py:30`
+```python
+def run(self, ctx):
+	obs = robot.get_observation()
+    obs_processed = self._process_observation_and_notify(ctx.processors, obs)
+    action_dict = send_next_action(obs_processed, obs, ctx, interpolator, timer)
+```
+而这里send_next_action:
+@src/lerobot/rollout/strategies/core.py:430-431
+```python
+processed = ctx.processors.robot_action_processor((action_dict, obs_raw))
+ctx.hardware.robot_wrapper.send_action(processed)
+```
+
 ---
 ## 参数介绍
 
@@ -155,3 +225,21 @@ policy, robot
 > 所以得到了最终的stack_trace:`ctx.policy.inference.get_action(obs)`
 > 于是返回看，看base的setup:`self._init_engine(ctx)`，无，所以再往上一层：ctx来自`build_rollout_context`，终于找到：@src/lerobot/rollout/inference/sync.py:109
 > `action = self._policy.select_action(observation)`
+
+> 这里的三明治是什么？
+```python
+# base.py:68-76（观察侧，你找到的 ✅）
+obs = robot.get_observation()                                # ①
+obs_processed = self._process_observation_and_notify(...)     # ② robot 侧 observation processor
+
+# core.py:415-431（send_next_action 内部，你找到的 ✅）
+obs_frame = build_dataset_frame(features, obs_processed, ...) # ③ 对齐成数据集帧格式
+action_tensor = engine.get_action(obs_frame)                 # ④ ★ 你写的"policy"，其实是推理引擎
+     # 引擎内部（sync.py）才是完整三明治：
+     #   preprocessor → select_action → postprocessor
+interpolator.add(action_tensor)                              # ⑤ ★ 你漏的：动作插值器！
+interp = interpolator.get()                                  # ⑥
+action_dict = {k: interp[i].item() for ...}                  # ⑦ 张量 → {关节名: 角度} dict
+processed = ctx.processors.robot_action_processor(...)       # ⑧ robot 侧 action processor（你找到的 ✅）
+ctx.hardware.robot_wrapper.send_action(processed)            # ⑨ 你找到的 ✅
+```
