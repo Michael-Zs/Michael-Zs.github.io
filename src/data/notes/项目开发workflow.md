@@ -65,3 +65,6 @@ setup_lerobot_keymap()
 
 # 快捷键配置
 可以约定使用`<leader>p`作为项目快捷键，并且给`which-key`配置分组
+
+# TODO
+- [ ] agent能否输出neovim的jumplist?

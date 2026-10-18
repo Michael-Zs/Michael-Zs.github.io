@@ -121,6 +121,12 @@ factory.py # 字符串->类 翻译
 关键概念有policy, strategy
 rollout -> Strategy -> policy
 
+**robot.get_observation->observation_processor->obs_processed**
+> @src/lerobot/rollout/strategies/base.py:71
+
+**processed_obs->policy->action->action_processor->robot.send_action**
+> @src/lerobot/rollout/strategies/core.py:430-431
+
 ---
 ## 参数介绍
 
@@ -147,4 +153,5 @@ policy, robot
 
 > 先看`rollout`，看到使用`create_strategy`，然后下面使用了`strategy.run(ctx)`, 这一定是重点，于是看`create_strategy`的定义->`BaseStrategy(RolloutStrategy)`，在里面找到了`.run方法`，里面`action=send_next_action(obs)`往里找到发现使用`action_tensor = engine.get_action(obs_frame)`，而`engine`在函数中使用：`engine = ctx.policy.inference`获取，
 > 所以得到了最终的stack_trace:`ctx.policy.inference.get_action(obs)`
-> 于是返回看，看base的setup:`self._init_engine(ctx)`，无，所以再往上一层：ctx来自`build_rollout_context`，终于找到：@src/lerobot/rollout/inference/sync.py:86
+> 于是返回看，看base的setup:`self._init_engine(ctx)`，无，所以再往上一层：ctx来自`build_rollout_context`，终于找到：@src/lerobot/rollout/inference/sync.py:109
+> `action = self._policy.select_action(observation)`

@@ -14,7 +14,7 @@ Repo: https://github.com/Michael-Zs/nvim.git
 ## 文件记忆跳转，stack_trace
 使用`V<leader>number`来设置某个位置，
 使用`<leader>number`来快速返回
-> 也可使用`<leader>z`来添加更多位置，`]z`和`[z`来遍历
+> 也可使用`<leader>zz`来添加更多位置，`]z`和`[z`来遍历
 
 ## 快速对照，分屏
 使用`\x`弹出菜单选择分屏文件, `\c`toggle分屏
