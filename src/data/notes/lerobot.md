@@ -170,7 +170,7 @@ return {
 以sync为例：
 `@src/lerobot/rollout/inference/sync.py:107-110`
 ```python
-def get_action():
+def get_action(obs):
 	observation = prepare_observation_for_inference(observation, self._device, task, self._robot_type)
 	observation = self._preprocessor(observation)
 	action = self._policy.select_action(observation) # 这里由policy实现
@@ -178,7 +178,7 @@ def get_action():
 	action = self._postprocessor(action)
 	return action_tensor
 ```
-好，先记住这个函数，回到
+> 所以`action = ctx.policy.inference.get_action(obs)`
 
 ### 在create_strategy函数中
 `@src/lerobot/rollout/strategies/factory.py:34`
@@ -193,9 +193,11 @@ def run(self, ctx):
 而这里send_next_action:
 @src/lerobot/rollout/strategies/core.py:430-431
 ```python
+action_tensor = engine.get_action(obs_frame)
 processed = ctx.processors.robot_action_processor((action_dict, obs_raw))
 ctx.hardware.robot_wrapper.send_action(processed)
 ```
+> 所以`RolloutStrategy.run(ctx)`完成了观察到发送的闭环
 
 ---
 ## 参数介绍
