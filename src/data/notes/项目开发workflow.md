@@ -16,14 +16,15 @@ in:
 
 - `.zsm_conf/config.lua`:
 ```lua
-function preview_stack_trace()
+local function preview_stack_trace()
+	local prj_root = vim.fs.root(0, ".git")
 	local line = vim.api.nvim_get_current_line()
 	local pattern = '="([^:]+):([^"]+)"'
 	local path, symbol = string.match(line, pattern)
 	if path and symbol then
-		path = "src/" .. string.gsub(path, "%.", "/") .. ".py"
+		path = prj_root .. "/src/" .. string.gsub(path, "%.", "/") .. ".py"
 		print(path .. ":" .. symbol)
-		pcall(vim.cmd, "e " .. path)
+		vim.cmd("e " .. path)
 		vim.fn.cursor(1, 1)
 		local lnum = vim.fn.search("def " .. symbol, "w")
 		if lnum == 0 then
@@ -39,4 +40,24 @@ end, { silent = true, noremap = true, buffer = true })
 > 在toml文件中，使用回车快速跳转。
 > `vim.keymap.set()`的`option`中，配置`buffer = true`把快捷键锁定到当前文件
 
-也可以考虑使用`.nvim.lua`，自定义`filetype`并使用`autocmd`来完成更灵活的配置
+- `.nvim.lua`
+```lua
+local function setup_lerobot_keymap()
+	local prj_root = vim.fs.root(0, ".git")
+	local filename = vim.api.nvim_buf_get_name(0)
+	if filename ~= prj_root .. "/pyproject.toml" then
+		return
+	end
+
+	dofile(prj_root .. "/.zsm_conf/config.lua")
+end
+
+vim.api.nvim_create_autocmd("BufEnter", {
+	group = vim.api.nvim_create_augroup("LerobotEntrypoints", { clear = true }),
+	pattern = "pyproject.toml",
+	callback = setup_lerobot_keymap,
+})
+
+setup_lerobot_keymap()
+```
+> 也可以考虑使用`.nvim.lua`，自定义`filetype`并使用`autocmd`来完成更灵活的配置
