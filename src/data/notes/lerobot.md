@@ -214,13 +214,6 @@ policy, robot
 - [ ] lerobot如何二次开发，看课题组基于lerobot的工作是怎样的
 - [ ] 笔记，config，policy，processor
 
-> lerobot有哪些policy？
-> 如果仅仅使用已有的policy，那岂不是没有任何策略的进步，如何二次开发
-> 改 config：chunk_size、学习率、backbone、图像增强……同一策略行为大变
-> Processor 积木：我们之前看过的 inverse_kinematics_ee_to_joints、相对动作转换、图像变换——都是不碰 policy 内部就能改变系统行为的机制。比如“ACT + EE pose action space”就是用现成积木拼出来的新组合
-> 
-> config有什么用？
-
 > 一个值得注意的 strategy：dagger
 > 它把我们最早聊的复合误差问题变成了采集方案：policy 自己跑，人只在它要犯错时介入修正——修正的那段轨迹恰好是“分布外状态下的正确动作”，正是缓解 distribution shift 最值钱的数据。部署、监控、采数据、再训练在这个模式下形成闭环。
 
@@ -229,20 +222,5 @@ policy, robot
 > 于是返回看，看base的setup:`self._init_engine(ctx)`，无，所以再往上一层：ctx来自`build_rollout_context`，终于找到：@src/lerobot/rollout/inference/sync.py:109
 > `action = self._policy.select_action(observation)`
 
-> 这里的三明治是什么？
-```python
-# base.py:68-76（观察侧，你找到的 ✅）
-obs = robot.get_observation()                                # ①
-obs_processed = self._process_observation_and_notify(...)     # ② robot 侧 observation processor
 
-# core.py:415-431（send_next_action 内部，你找到的 ✅）
-obs_frame = build_dataset_frame(features, obs_processed, ...) # ③ 对齐成数据集帧格式
-action_tensor = engine.get_action(obs_frame)                 # ④ ★ 你写的"policy"，其实是推理引擎
-     # 引擎内部（sync.py）才是完整三明治：
-     #   preprocessor → select_action → postprocessor
-interpolator.add(action_tensor)                              # ⑤ ★ 你漏的：动作插值器！
-interp = interpolator.get()                                  # ⑥
-action_dict = {k: interp[i].item() for ...}                  # ⑦ 张量 → {关节名: 角度} dict
-processed = ctx.processors.robot_action_processor(...)       # ⑧ robot 侧 action processor（你找到的 ✅）
-ctx.hardware.robot_wrapper.send_action(processed)            # ⑨ 你找到的 ✅
-```
+https://www.pi.website
