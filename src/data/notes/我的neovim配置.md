@@ -26,3 +26,13 @@ Repo: https://github.com/Michael-Zs/nvim.git
 ## 善用tab
 使用`Tab Tab`创建tab
 使用`<leader>,`和`<leader>.`来切换tab
+
+## quickfix
+在搜索，picker中，使用tab多选，`C-q`加入quickfix列表，
+`<leader>xq <leader>xQ <leader>sq`
+
+## 跳转阅读
+使用waymark的q来记录主分支，关键位置标记
+使用waymark的r，e，w来记录暂时stack trace，跳转到更深层前记录
+在一个文件探索时，使用mark，例如ma来记录重要位置，快速跳转
+从主分支切换的时候，可以使用

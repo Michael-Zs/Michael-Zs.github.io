@@ -117,7 +117,7 @@ factory.py # 字符串->类 翻译
 - @docs/source/bring_your_own_policies.mdx (policy文档)
 - @src/lerobot/policies/pretrained.py (policy父类)
 
-### Stack Trace
+# Call Chain
 关键概念有policy, strategy
 rollout -> Strategy -> policy
 
@@ -198,6 +198,7 @@ processed = ctx.processors.robot_action_processor((action_dict, obs_raw))
 ctx.hardware.robot_wrapper.send_action(processed)
 ```
 > 所以`RolloutStrategy.run(ctx)`完成了观察到发送的闭环
+
 
 ---
 ## 参数介绍
