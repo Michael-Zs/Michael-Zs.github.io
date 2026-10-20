@@ -66,5 +66,10 @@ setup_lerobot_keymap()
 # 快捷键配置
 可以约定使用`<leader>p`作为项目快捷键，并且给`which-key`配置分组
 
+# FZF
+使用`c-t` 或者`** tab` 搜索文件
+使用`c-r` 搜索指令
+
 # TODO
 - [ ] agent能否输出neovim的jumplist?
+- [ ] 使用direnv管理开发环境
