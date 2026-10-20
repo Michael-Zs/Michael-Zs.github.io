@@ -10,6 +10,12 @@ Repo: https://github.com/Michael-Zs/nvim.git
 
 自动从项目根目录加载`.nvim.lua`
 
+# 最小快捷键
+JK to scroll
+jf to esc
+
+`c-w T` 将当前窗口在新tab打开
+
 # Recipe
 ## 文件记忆跳转，stack_trace
 使用`V<leader>number`来设置某个位置，
