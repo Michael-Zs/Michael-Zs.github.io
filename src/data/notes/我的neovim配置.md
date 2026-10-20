@@ -28,8 +28,13 @@ Repo: https://github.com/Michael-Zs/nvim.git
 使用`<leader>,`和`<leader>.`来切换tab
 
 ## quickfix
-在搜索，picker中，使用tab多选，`C-q`加入quickfix列表，
+在搜索，picker中，使用`tab`多选，`C-q`加入quickfix列表，
 `<leader>xq <leader>xQ <leader>sq`
+
+例如:
+`<leader>sb` 或者 `<leader>/` 搜索文字，
+使用`tab`多选，`C-q`加入quickfix
+然后就可以使用`]q`遍历了
 
 ## 跳转阅读
 使用waymark的q来记录主分支，关键位置标记

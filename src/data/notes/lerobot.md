@@ -4,7 +4,7 @@ description: lerobot note
 pubDate: 2026-10-16
 tags: []
 ---
-![](attachments/Pasted%20image%2020261017010309.png)
+c![](attachments/Pasted%20image%2020261017010309.png)
 
 # startup
 ## 安装
