@@ -32,6 +32,7 @@ jf to esc
 ## 善用tab
 使用`Tab Tab`创建tab
 使用`<leader>,`和`<leader>.`来切换tab
+在打开分屏文件后，使用`c-w T`来把文件放入新tab
 
 ## quickfix
 在搜索，picker中，使用`tab`多选，`C-q`加入quickfix列表，

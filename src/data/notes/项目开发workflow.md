@@ -70,6 +70,10 @@ setup_lerobot_keymap()
 使用`c-t` 或者`** tab` 搜索文件
 使用`c-r` 搜索指令
 
+# TMUX setup
+## TODO:
+- [ ] tmux-sessionx
+
 # TODO
 - [ ] agent能否输出neovim的jumplist?
 - [ ] 使用direnv管理开发环境

@@ -4,7 +4,7 @@ description: lerobot note
 pubDate: 2026-10-16
 tags: []
 ---
-c![](attachments/Pasted%20image%2020261017010309.png)
+![](attachments/Pasted%20image%2020261017010309.png)
 
 # startup
 ## 安装
@@ -213,6 +213,7 @@ policy, robot
 - [ ] 看论文？别人是怎么做的
 - [ ] lerobot如何二次开发，看课题组基于lerobot的工作是怎样的
 - [ ] 笔记，config，policy，processor
+- [ ] 消融实验室什么意思？
 
 > 一个值得注意的 strategy：dagger
 > 它把我们最早聊的复合误差问题变成了采集方案：policy 自己跑，人只在它要犯错时介入修正——修正的那段轨迹恰好是“分布外状态下的正确动作”，正是缓解 distribution shift 最值钱的数据。部署、监控、采数据、再训练在这个模式下形成闭环。
