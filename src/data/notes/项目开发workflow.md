@@ -73,6 +73,8 @@ setup_lerobot_keymap()
 # TMUX setup
 ## TODO:
 - [ ] tmux-sessionx
+- [ ] lazygit 高级功能
+- [ ] lazyrsync
 
 # TODO
 - [ ] agent能否输出neovim的jumplist?

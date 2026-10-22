@@ -15,6 +15,16 @@ JK to scroll
 jf to esc
 
 `c-w T` 将当前窗口在新tab打开
+`<leader>sp` 快速搜索打开项目
+
+`<leader>sw` 快速搜索单词（可选中搜索
+
+`gao`, `gai` 看函数调用和被调用
+
+mini.ai
+使用`vab`选中括号，继续按下ab选择下一个括号/上层括号
+`vaq`选中quotes
+还可以组合，`valq`， `vanq` 选择上一个，下一个quote
 
 # Recipe
 ## 文件记忆跳转，stack_trace
