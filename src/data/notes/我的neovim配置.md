@@ -26,6 +26,7 @@ mini.ai
 `vaq`选中quotes
 还可以组合，`valq`， `vanq` 选择上一个，下一个quote
 
+在使用grep的时候，可以使用"pattern -- -g glob"的方法来指定搜索
 # Recipe
 ## 文件记忆跳转，stack_trace
 使用`V<leader>number`来设置某个位置，
