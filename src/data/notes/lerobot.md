@@ -199,6 +199,37 @@ ctx.hardware.robot_wrapper.send_action(processed)
 ```
 > 所以`RolloutStrategy.run(ctx)`完成了观察到发送的闭环
 
+## 链路
+>obs->obs_processor(例如转换EEpose)->pre_processor(归一化，数据从cpu搬到gpu)->policy(输入obs,输出action)->post_processor(反归一化，数据从gpu到cpu)->action_processor(例如EEpose到关节)->send_action
+
+```python
+robot.get_observation()
+    ↓
+robot_observation_processor
+    例如：关节角 → EE 位姿；默认是原样通过
+    ↓
+build_dataset_frame + prepare_observation_for_inference
+    整理观测字段、NumPy → Tensor、调整图像格式、
+    添加 batch 维度、搬到推理设备
+    ↓
+policy preprocessor
+    例如 ACT：字段重命名、检查/补充 batch 维度、
+    设备放置、归一化
+    ↓
+policy.select_action()
+    输入处理后的观测，返回动作
+    ↓
+policy postprocessor
+    例如 ACT：反归一化、搬回 CPU
+    ↓
+动作插值（启用时）+ Tensor 转为带字段名的 action dict
+    ↓
+robot_action_processor((action_dict, obs_raw))
+    例如：EE 目标位姿 → 关节目标
+    ↓
+robot.send_action()
+```
+
 
 ---
 ## 参数介绍

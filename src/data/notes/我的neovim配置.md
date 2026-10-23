@@ -14,7 +14,7 @@ Repo: https://github.com/Michael-Zs/nvim.git
 JK to scroll
 jf to esc
 
-`c-w T` 将当前窗口在新tab打开
+`c-w T` 将当前窗口在新tab打开, `c-w c-q` 退出窗口
 `<leader>sp` 快速搜索打开项目
 
 `<leader>sw` 快速搜索单词（可选中搜索
@@ -26,7 +26,7 @@ mini.ai
 `vaq`选中quotes
 还可以组合，`valq`， `vanq` 选择上一个，下一个quote
 
-在使用grep的时候，可以使用"pattern -- -g glob"的方法来指定搜索
+在使用grep的时候，可以使用"pattern -- glob"的方法来指定搜索
 # Recipe
 ## 文件记忆跳转，stack_trace
 使用`V<leader>number`来设置某个位置，
@@ -59,3 +59,10 @@ mini.ai
 使用waymark的r，e，w来记录暂时stack trace，跳转到更深层前记录
 在一个文件探索时，使用mark，例如ma来记录重要位置，快速跳转
 从主分支切换的时候，可以使用
+使用`<leader>num`跳转文件，`<leader>shift num`跳转精确位置
+
+# waymark
+可以把它当成一个树来使用，
+先设置最基本的123，然后需要深入的时候，直接`<leader>zz`添加，看完回去把多余的新增的树分支删掉，继续主线
+ 当跳转不再线形，也可使用其他markset来辅助，例如直接`<leader>zr`添加，使用`<leader>]r`来浏览
+ mindset: 主线q有结构，树状，分支使用完就删。其他markset，例如r，直接随便使用，无结构，用于快速跳转，减轻记忆负担
