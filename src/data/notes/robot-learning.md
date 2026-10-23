@@ -4,6 +4,8 @@ description: ""
 pubDate: 2026-10-23
 tags: []
 ---
+![](attachments/Pasted%20image%2020261023210506.png)
+
 - [ ] motion tracking
 
 [人形算法](https://www.bilibili.com/video/BV1CNfzBbEY5/?spm_id_from=333.337.search-card.all.click&vd_source=e2845475854f731bb7132d922cd543d8)
