@@ -30,3 +30,11 @@ DeepMimic!!!!这个值得看
 Motion Tracking
 VLA
 世界模型（特斯拉FSD
+
+# Lerobot 教程
+https://huggingface.co/docs/lerobot/introduction_processors
+
+pi05？
+
+强化学习后训练？
+RSI？这只是一个harness？
