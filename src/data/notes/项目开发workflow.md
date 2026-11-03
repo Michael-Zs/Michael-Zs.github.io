@@ -70,11 +70,21 @@ setup_lerobot_keymap()
 使用`c-t` 或者`** tab` 搜索文件
 使用`c-r` 搜索指令
 
-# TMUX setup
+# 小工具
+snipaste，截图贴图，用来代码对照特别爽
+lazyssh, lazyrsync
+并且使用yazi来快速navigate
+gpt同时按下两个cmd+mini
+
+# Robot
+现在使用tracelr来快速review
+
 ## TODO:
 - [ ] tmux-sessionx
 - [ ] lazygit 高级功能
-- [ ] lazyrsync
+- [x] lazyrsync
+- [x] lazyssh
+- [x] snipaste
 
 # TODO
 - [ ] agent能否输出neovim的jumplist?
