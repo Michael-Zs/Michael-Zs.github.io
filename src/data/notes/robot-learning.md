@@ -38,3 +38,26 @@ pi05？
 
 强化学习后训练？
 RSI？这只是一个harness？
+
+# 算法
+- [ ] rl, actor critic
+- [ ] flow matching
+- [ ] vla
+- [ ] 特征对齐
+- [ ] cfg (class free guidence)
+- [ ] diffusion
+- [ ] beyond mimic
+- [ ] resnet
+- [ ] rnn
+- [ ] attention
+- [ ] alpha nist
+- [ ] 影子推理
+- [ ] opd
+- [ ] dagger
+- [ ] vppr
+- [ ] 模型的compile
+- [ ] fastwam
+- [ ] grpo
+- [ ] cot
+# 教程
+minimind
