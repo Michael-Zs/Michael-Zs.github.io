@@ -105,6 +105,9 @@ use hyper+b as browser, hyper+t as terminal... in raycast
 > 随时可以popup一个gpt，并且always on top
 > 可以快速的进行term+broswer term+gpt的组合
 
+# aerospace
+
+
 # up
 ![](attachments/Pasted%20image%2020261107235528.png)
 ![](attachments/Pasted%20image%2020261107235548.png)
